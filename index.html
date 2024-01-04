@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta ao Diario Eletrônico Nacional - DJEN </title>
+    <title>Consulta ao Diario Eletrônico Nacional - DJEN -2 </title>
 </head>
 <body>
 
@@ -17,8 +17,8 @@
     var nomeAdvogado = urlParams.get('nomeAdvogado') || "";
     
     // Obtém as datas da URL ou define padrões
-    var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || new Date();
-    var dataDisponibilizacaoFim = urlParams.get('dataDisponibilizacaoFim') || new Date();
+    var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || new Date().toISOString().split('T')[0];
+    var dataDisponibilizacaoFim = urlParams.get('dataDisponibilizacaoFim') || new Date().toISOString().split('T')[0];
     
     // Construa a URL da API
     var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
@@ -41,6 +41,7 @@
     xhr.open('GET', url, true);
     xhr.send();
 </script>
+
 
 </body>
 </html>
