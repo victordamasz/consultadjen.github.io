@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta ao DJEN</title>
+</head>
+<body>
+
+<div id="resultado-api"></div>
+
+<script>
+    // Obtenha os parâmetros da URL
+    var urlParams = new URLSearchParams(window.location.search);
+    
+    // Substitua pelo nome do advogado desejado
+    var nomeAdvogado = urlParams.get('nomeAdvogado') || "";
+    
+    // Obtém as datas da URL ou define padrões
+    var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || new Date();
+    var dataDisponibilizacaoFim = urlParams.get('dataDisponibilizacaoFim') || new Date();
+    
+    // Construa a URL da API
+    var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
+    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}&dataDisponibilizacaoInicio=${dataDisponibilizacaoInicio}&dataDisponibilizacaoFim=${dataDisponibilizacaoFim}`;
+    
+    // Faça a requisição AJAX
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                document.getElementById('resultado-api').innerText = JSON.stringify(response, null, 2);
+            } else {
+                document.getElementById('resultado-api').innerText = 'Erro ao acessar a API.';
+            }
+        }
+    };
+    
+    xhr.open('GET', url, true);
+    xhr.send();
+</script>
+
+</body>
+</html>
