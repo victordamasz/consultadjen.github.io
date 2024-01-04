@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste API Comunica</title>
+</head>
+<body>
+
+<div id="resultado-api"></div>
+
+<script>
+    // Substitua pelo nome do advogado desejado
+    var nomeAdvogado = "adriana janes";
+    
+    var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
+    var dataDisponibilizacaoInicio = new Date();
+    dataDisponibilizacaoInicio.setDate(dataDisponibilizacaoInicio.getDate() - 15);
+    var dataDisponibilizacaoFim = new Date();
+    
+    // Construa a URL da API
+    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}&dataDisponibilizacaoInicio=${dataDisponibilizacaoInicio.toISOString().split('T')[0]}&dataDisponibilizacaoFim=${dataDisponibilizacaoFim.toISOString().split('T')[0]}`;
+    
+    // Faça a requisição AJAX
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                document.getElementById('resultado-api').innerText = JSON.stringify(response, null, 2);
+            } else {
+                document.getElementById('resultado-api').innerText = 'Erro ao acessar a API.';
+            }
+        }
+    };
+    
+    xhr.open('GET', url, true);
+    xhr.send();
+</script>
+
+</body>
+</html>
