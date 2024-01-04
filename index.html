@@ -15,7 +15,7 @@
     
     // Construa a URL da API com o parâmetro "dados"
     var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
-    var url = `${api_url}?${urlParams.get('dados') || ''}`;
+    var url = `${api_url}?$nomeAdvogado={urlParams.get('nomeAdvogado') || ''}`;
     
     // Faça a requisição AJAX
     var xhr = new XMLHttpRequest();
