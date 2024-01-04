@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta ao Diario Eletrônico Nacional - DJEN -12</title>
+    <title>Teste API Comunica</title>
 </head>
 <body>
 
 <div id="resultado-api"></div>
 
 <script>
-    // Obtenha os parâmetros da URL
-    var urlParams = new URLSearchParams(window.location.search);
-
-    // Construa a URL do script proxy
-    var proxy_url = 'https://advosys.lojaprintmix.com/comunicaPje';
-
-    // Dados a serem enviados
-    var postData = {
-        nomeAdvogado: urlParams.get('nomeAdvogado') || '',
-        dataDisponibilizacaoInicio: urlParams.get('dataDisponibilizacaoInicio') || '',
-        dataDisponibilizacaoFim: urlParams.get('dataDisponibilizacaoFim') || ''
-    };
-
-    // Faça a requisição AJAX com método POST para o script proxy
+    // Substitua pelo nome do advogado desejado
+    var nomeAdvogado = "adriana janes";
+    
+    var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
+    var dataDisponibilizacaoInicio = new Date();
+    dataDisponibilizacaoInicio.setDate(dataDisponibilizacaoInicio.getDate() - 15);
+    var dataDisponibilizacaoFim = new Date();
+    
+    // Construa a URL da API
+    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}&dataDisponibilizacaoInicio=${dataDisponibilizacaoInicio.toISOString().split('T')[0]}&dataDisponibilizacaoFim=${dataDisponibilizacaoFim.toISOString().split('T')[0]}`;
+    
+    // Faça a requisição AJAX
     var xhr = new XMLHttpRequest();
-
+    
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -36,11 +34,9 @@
             }
         }
     };
-
-    xhr.open('POST', proxy_url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.send(JSON.stringify(postData));
-
+    
+    xhr.open('GET', url, true);
+    xhr.send();
 </script>
 
 </body>
