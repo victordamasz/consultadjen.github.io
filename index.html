@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta ao Diario Eletrônico Nacional - DJEN -9 </title>
+    <title>Consulta ao Diario Eletrônico Nacional - DJEN -10 </title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
     var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || '';
     var dataDisponibilizacaoFim = urlParams.get('dataDisponibilizacaoFim') || '';
     
-    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}&dataDisponibilizacaoInicio=${dataDisponibilizacaoInicio}&dataDisponibilizacaoFim=${dataDisponibilizacaoFim}`;
+    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}`;
     
     // Faça a requisição AJAX
     var xhr = new XMLHttpRequest();
