@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta ao Diario Eletrônico Nacional - DJEN -10 </title>
+    <title>Consulta ao Diario Eletrônico Nacional - DJEN -11 </title>
 </head>
 <body>
 
@@ -12,18 +12,20 @@
 <script>
     // Obtenha os parâmetros da URL
     var urlParams = new URLSearchParams(window.location.search);
-    
-    // Construa a URL da API com os parâmetros
+
+    // Construa a URL da API
     var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
-    var nomeAdvogado = urlParams.get('nomeAdvogado') || '';
-    var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || '';
-    var dataDisponibilizacaoFim = urlParams.get('dataDisponibilizacaoFim') || '';
     
-    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}`;
-    
-    // Faça a requisição AJAX
+    // Dados a serem enviados
+    var postData = {
+        nomeAdvogado: urlParams.get('nomeAdvogado') || '',
+        dataDisponibilizacaoInicio: urlParams.get('dataDisponibilizacaoInicio') || '',
+        dataDisponibilizacaoFim: urlParams.get('dataDisponibilizacaoFim') || ''
+    };
+
+    // Faça a requisição AJAX com método POST
     var xhr = new XMLHttpRequest();
-    
+
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -34,9 +36,11 @@
             }
         }
     };
-    
-    xhr.open('GET', url, true);
-    xhr.send();
+
+    xhr.open('POST', api_url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(JSON.stringify(postData));
+
 </script>
 
 </body>
