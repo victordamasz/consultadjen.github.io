@@ -14,8 +14,12 @@
     var urlParams = new URLSearchParams(window.location.search);
     
     // Substitua pelo nome do advogado desejado
-    var nomeAdvogado = decodeURIComponent(urlParams.get('nomeAdvogado')) || "";
+var nomeAdvogado = urlParams.get('nomeAdvogado') || "";
 
+// Garante que o nomeAdvogado seja uma string não nula
+if (nomeAdvogado === "null") {
+    nomeAdvogado = "";
+}
     
     // Obtém as datas da URL ou define padrões
     var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || new Date().toISOString().split('T')[0];
