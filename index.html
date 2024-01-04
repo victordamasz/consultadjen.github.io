@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta ao Diario Eletrônico Nacional - DJEN -8 </title>
+    <title>Consulta ao Diario Eletrônico Nacional - DJEN -9 </title>
 </head>
 <body>
 
@@ -13,9 +13,13 @@
     // Obtenha os parâmetros da URL
     var urlParams = new URLSearchParams(window.location.search);
     
-    // Construa a URL da API com o parâmetro "nomeAdvogado"
+    // Construa a URL da API com os parâmetros
     var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
-    var url = `${api_url}?nomeAdvogado=${urlParams.get('nomeAdvogado') || ''}`;
+    var nomeAdvogado = urlParams.get('nomeAdvogado') || '';
+    var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || '';
+    var dataDisponibilizacaoFim = urlParams.get('dataDisponibilizacaoFim') || '';
+    
+    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}&dataDisponibilizacaoInicio=${dataDisponibilizacaoInicio}&dataDisponibilizacaoFim=${dataDisponibilizacaoFim}`;
     
     // Faça a requisição AJAX
     var xhr = new XMLHttpRequest();
