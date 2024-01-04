@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta ao Diario Eletrônico Nacional - DJEN -3 </title>
+    <title>Consulta ao Diario Eletrônico Nacional - DJEN -6 </title>
 </head>
 <body>
 
@@ -13,21 +13,9 @@
     // Obtenha os parâmetros da URL
     var urlParams = new URLSearchParams(window.location.search);
     
-    // Substitua pelo nome do advogado desejado
-var nomeAdvogado = urlParams.get('nomeAdvogado') || "";
-
-// Garante que o nomeAdvogado seja uma string não nula
-if (nomeAdvogado === "null") {
-    nomeAdvogado = "";
-}
-    
-    // Obtém as datas da URL ou define padrões
-    var dataDisponibilizacaoInicio = urlParams.get('dataDisponibilizacaoInicio') || new Date().toISOString().split('T')[0];
-    var dataDisponibilizacaoFim = urlParams.get('dataDisponibilizacaoFim') || new Date().toISOString().split('T')[0];
-    
-    // Construa a URL da API
+    // Construa a URL da API com o parâmetro "dados"
     var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
-    var url = `${api_url}?nomeAdvogado=adriana&dataDisponibilizacaoInicio=${dataDisponibilizacaoInicio}&dataDisponibilizacaoFim=${dataDisponibilizacaoFim}`;
+    var url = `${api_url}?${urlParams.get('dados') || ''}`;
     
     // Faça a requisição AJAX
     var xhr = new XMLHttpRequest();
@@ -46,7 +34,6 @@ if (nomeAdvogado === "null") {
     xhr.open('GET', url, true);
     xhr.send();
 </script>
-
 
 </body>
 </html>
