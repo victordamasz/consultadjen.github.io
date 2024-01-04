@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta ao Diario Eletrônico Nacional - DJEN -11 </title>
+    <title>Consulta ao Diario Eletrônico Nacional - DJEN -12</title>
 </head>
 <body>
 
@@ -13,9 +13,9 @@
     // Obtenha os parâmetros da URL
     var urlParams = new URLSearchParams(window.location.search);
 
-    // Construa a URL da API
-    var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
-    
+    // Construa a URL do script proxy
+    var proxy_url = 'https://advosys.lojaprintmix.com/comunicaPje';
+
     // Dados a serem enviados
     var postData = {
         nomeAdvogado: urlParams.get('nomeAdvogado') || '',
@@ -23,7 +23,7 @@
         dataDisponibilizacaoFim: urlParams.get('dataDisponibilizacaoFim') || ''
     };
 
-    // Faça a requisição AJAX com método POST
+    // Faça a requisição AJAX com método POST para o script proxy
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
@@ -37,7 +37,7 @@
         }
     };
 
-    xhr.open('POST', api_url, true);
+    xhr.open('POST', proxy_url, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify(postData));
 
