@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste API - Saída JSON</title>
+    <title>Teste API - Saída 2</title>
 </head>
 <body>
-
-<div id="resultado-api"></div>
 
 <script>
     // Função para capturar os parâmetros da URL
@@ -39,11 +37,10 @@
 
                 // Se o parâmetro "format" for "json", exibe a resposta como JSON
                 if (format === 'json') {
-                    // Define o cabeçalho para que a página seja exibida como JSON
-                    document.getElementById('resultado-api').innerHTML = JSON.stringify(response, null, 2);
-                } else {
-                    // Exibe o conteúdo normal da página (caso não seja solicitado em formato JSON)
-                    document.getElementById('resultado-api').innerHTML = '<pre>' + JSON.stringify(response, null, 2) + '</pre>';
+                    // Retorna o JSON puro na resposta
+                    document.open();
+                    document.write(JSON.stringify(response, null, 2));
+                    document.close();
                 }
             } else {
                 document.getElementById('resultado-api').innerText = 'Erro ao acessar a API.';
