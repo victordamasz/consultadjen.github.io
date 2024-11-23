@@ -10,16 +10,21 @@
 <div id="resultado-api"></div>
 
 <script>
-    // Substitua pelo nome do advogado desejado
-    var nomeAdvogado = "adriana janes";
+    // Função para capturar os parâmetros da URL
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Captura os parâmetros da URL
+    var nomeAdvogado = getUrlParameter("nomeAdvogado") || "adriana janes";  // Se não houver, usa o valor padrão
+    var dataDisponibilizacaoInicio = getUrlParameter("dataDisponibilizacaoInicio") || new Date(new Date().setDate(new Date().getDate() - 15)).toISOString().split('T')[0]; // Pega a data de 15 dias atrás, se não houver
+    var dataDisponibilizacaoFim = getUrlParameter("dataDisponibilizacaoFim") || new Date().toISOString().split('T')[0];  // Pega a data atual, se não houver
     
     var api_url = 'https://comunicaapi.pje.jus.br/api/v1/comunicacao';
-    var dataDisponibilizacaoInicio = new Date();
-    dataDisponibilizacaoInicio.setDate(dataDisponibilizacaoInicio.getDate() - 15);
-    var dataDisponibilizacaoFim = new Date();
     
-    // Construa a URL da API
-    var url = `${api_url}?nomeAdvogado=${nomeAdvogado}&dataDisponibilizacaoInicio=${dataDisponibilizacaoInicio.toISOString().split('T')[0]}&dataDisponibilizacaoFim=${dataDisponibilizacaoFim.toISOString().split('T')[0]}`;
+    // Construa a URL da API com os parâmetros dinâmicos
+    var url = `${api_url}?nomeAdvogado=${encodeURIComponent(nomeAdvogado)}&dataDisponibilizacaoInicio=${encodeURIComponent(dataDisponibilizacaoInicio)}&dataDisponibilizacaoFim=${encodeURIComponent(dataDisponibilizacaoFim)}`;
     
     // Faça a requisição AJAX
     var xhr = new XMLHttpRequest();
