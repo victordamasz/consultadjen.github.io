@@ -16,6 +16,9 @@
         return urlParams.get(name);
     }
 
+    // Captura o parâmetro "format"
+    var format = getUrlParameter("format");
+
     // Captura os parâmetros da URL
     var nomeAdvogado = getUrlParameter("nomeAdvogado") || "adriana janes";  // Se não houver, usa o valor padrão
     var dataDisponibilizacaoInicio = getUrlParameter("dataDisponibilizacaoInicio") || new Date(new Date().setDate(new Date().getDate() - 15)).toISOString().split('T')[0]; // Pega a data de 15 dias atrás, se não houver
@@ -25,7 +28,7 @@
     
     // Construa a URL da API com os parâmetros dinâmicos
     var url = `${api_url}?nomeAdvogado=${encodeURIComponent(nomeAdvogado)}&dataDisponibilizacaoInicio=${encodeURIComponent(dataDisponibilizacaoInicio)}&dataDisponibilizacaoFim=${encodeURIComponent(dataDisponibilizacaoFim)}`;
-    
+
     // Faça a requisição AJAX
     var xhr = new XMLHttpRequest();
     
@@ -33,8 +36,15 @@
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
-                // Exibe a resposta no formato JSON formatado
-                document.getElementById('resultado-api').innerHTML = '<pre>' + JSON.stringify(response, null, 2) + '</pre>';
+
+                // Se o parâmetro "format" for "json", exibe a resposta como JSON
+                if (format === 'json') {
+                    // Define o cabeçalho para que a página seja exibida como JSON
+                    document.getElementById('resultado-api').innerHTML = JSON.stringify(response, null, 2);
+                } else {
+                    // Exibe o conteúdo normal da página (caso não seja solicitado em formato JSON)
+                    document.getElementById('resultado-api').innerHTML = '<pre>' + JSON.stringify(response, null, 2) + '</pre>';
+                }
             } else {
                 document.getElementById('resultado-api').innerText = 'Erro ao acessar a API.';
             }
